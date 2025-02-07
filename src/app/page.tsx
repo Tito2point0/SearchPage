@@ -5,7 +5,7 @@ import styles from "./styles/home.module.css";
 
 // Pokémon images for carousel (replace with API later)
 const pokemonImages = [
-  "/pokemon1.jpg",
+  "/pokemon1.WEBP",
   "/pokemon2.jpg",
   "/pokemon3.jpg",
   "/pokemon4.jpg",
