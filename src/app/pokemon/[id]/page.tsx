@@ -1,94 +1,97 @@
-"use client"; // ✅ Marks this as a Client Component
+// src/app/card/[name]/page.tsx
+"use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation"; // ✅ Replaces useRouter for Next.js App Router
+import { useParams } from "next/navigation"; // For dynamic route parameters
 import Image from "next/image";
-import styles from "../../styles/home.module.css"; // ✅ Adjusted relative path
+import styles from "../../styles/home.module.css";
 
-// Define TypeScript Interfaces
-interface Ability {
-  ability: {
-    name: string;
-  };
-}
-
-interface Stat {
-  base_stat: number;
-  stat: {
-    name: string;
-  };
-}
-
-interface Pokemon {
+interface Card {
+  id: string;
   name: string;
-  sprites: {
-    other?: {
-      "official-artwork"?: {
-        front_default?: string;
-      };
-    };
+  supertype: string;
+  subtypes: string[];
+  hp: string;
+  types: string[];
+  attacks?: {
+    name: string;
+    cost: string[];
+    convertedEnergyCost: number;
+    damage: string;
+    text: string;
+  }[];
+  weaknesses?: {
+    type: string;
+    value: string;
+  }[];
+  images: {
+    small: string;
+    large: string;
   };
-  abilities: Ability[];
-  stats: Stat[];
 }
 
-export default function PokemonDetail() {
-  const pathname = usePathname(); // ✅ Get the current path
-  const id = pathname.split("/").pop(); // Extract Pokémon ID from URL
-
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+export default function CardDetailPage() {
+  // Get the 'name' parameter from the URL (this is the Pokemon name)
+  const { name } = useParams();
+  const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!name) return;
 
-    const fetchPokemonDetails = async () => {
+    async function fetchCardData() {
       try {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        if (!res.ok) throw new Error("Failed to fetch Pokémon details.");
+        // Use your API key (if required) from environment variables
+        const apiKey = process.env.NEXT_PUBLIC_POKEMON_TCG_API_KEY || "";
+        // Build the URL to search for cards by Pokemon name (using the 'q' query parameter)
+        const url = `https://api.pokemontcg.io/v2/cards?q=name:${encodeURIComponent(name as string)}`;
+        const res = await fetch(url, {
+          headers: {
+            "X-Api-Key": apiKey,
+          },
+        });
+        if (!res.ok) {
+          throw new Error("Failed to fetch card details");
+        }
         const data = await res.json();
-        setPokemon(data);
-      } catch {
-        setError("Failed to load Pokémon details.");
+        console.log("Fetched card data:", data); // Console log the API response
+        if (data.data) {
+          setCards(data.data);
+        } else {
+          throw new Error("No card data returned");
+        }
+      } catch (err: any) {
+        setError(err.message || "An error occurred");
       } finally {
         setLoading(false);
       }
-    };
+    }
+    fetchCardData();
+  }, [name]);
 
-    fetchPokemonDetails();
-  }, [id]);
-
-  if (loading) return <p>Loading Pokémon...</p>;
+  if (loading) return <p>Loading card details...</p>;
   if (error) return <p>{error}</p>;
-  if (!pokemon) return <p>Pokémon not found.</p>;
+  if (cards.length === 0)
+    return <p>No cards found for &quot;{name}&quot;.</p>;
 
   return (
-    <div className={styles.container}>
-      <h1>{pokemon.name.toUpperCase()}</h1>
-      <Image
-        src={pokemon.sprites.other?.["official-artwork"]?.front_default || "/fallback.png"}
-        alt={pokemon.name}
-        width={300}
-        height={300}
-        priority
-      />
-      
-      <h3>Abilities:</h3>
-      <ul>
-        {pokemon.abilities.map((ability, index) => (
-          <li key={index}>{ability.ability.name}</li>
+    <div className={styles.detailContainer}>
+      <h1>Cards for {typeof name === 'string' ? name.toUpperCase() : "Unknown"}</h1>
+      <div className={styles.detailCardGrid}>
+        {cards.map((card) => (
+          <div key={card.id} className={styles.card}>
+            <Image
+              src={card.images.small}
+              alt={card.name}
+              width={150}
+              height={210}
+              priority
+            />
+            <h3>{card.name}</h3>
+          </div>
         ))}
-      </ul>
-
-      <h3>Base Stats:</h3>
-      <ul>
-        {pokemon.stats.map((stat, index) => (
-          <li key={index}>
-            {stat.stat.name.toUpperCase()}: {stat.base_stat}
-          </li>
-        ))}
-      </ul>
+      </div>
     </div>
   );
 }

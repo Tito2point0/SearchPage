@@ -1,12 +1,11 @@
 // src/app/page.tsx
-"use client"; // Mark this as a client component since we’re using state and effects
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./styles/home.module.css";
 
-// TypeScript interface for each Pokémon entry in the list
 interface Pokemon {
   name: string;
   url: string;
@@ -31,8 +30,7 @@ export default function HomePage() {
         const data = await res.json();
         setPokemonList(data.results);
       } catch (err) {
-        console.error(err);
-        setError("Failed to load Pokémon. Please try again later.");
+        setError((err instanceof Error) ? err.message : "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -40,7 +38,7 @@ export default function HomePage() {
     fetchPokemon();
   }, []);
 
-  // Calculate pagination
+  // Pagination calculations
   const totalPages = Math.ceil(pokemonList.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentPokemon = pokemonList.slice(startIndex, startIndex + itemsPerPage);
@@ -53,14 +51,15 @@ export default function HomePage() {
       <h1 className={styles.title}>Pokémon Explorer</h1>
       <div className={styles.grid}>
         {currentPokemon.map((pokemon) => {
-          // Extract Pokémon ID from the URL (the ID is the second-to-last segment)
+          // Extract the Pokémon ID from the URL (used for the sprite)
           const segments = pokemon.url.split("/");
-          const id = segments[segments.length - 2];
+          const pokeId = segments[segments.length - 2];
+          // Pass the Pokemon name (encoded) in the URL for the detail page.
           return (
-            <Link key={id} href={`/pokemon/${id}`}>
+            <Link key={pokeId} href={`/card/${encodeURIComponent(pokemon.name)}`}>
               <div className={styles.card}>
                 <Image
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`}
                   alt={pokemon.name}
                   width={100}
                   height={100}
