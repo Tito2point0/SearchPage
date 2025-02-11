@@ -38,4 +38,53 @@
     display: flex;
     justify-content: center;
   }
+  .container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    color: #ffcc00;
+    text-shadow: 2px 2px 4px #000;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .pagination {
+    margin-top: 20px;
+  }
+  
+  .button {
+    padding: 10px;
+    margin: 5px;
+    background: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
   

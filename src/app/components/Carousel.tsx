@@ -1,15 +1,16 @@
-"use client"
+"use client";  // Ensures this runs only on the client side
 
 import React from "react";
 import Slider from "react-slick";
 import Image from "next/image";
+import Link from "next/link";  // Import Next.js Link
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import styles from "../styles/home.module.css";
 
-// Define props type
+// Define the props for Carousel
 interface CarouselProps {
-  images: string[];
+  images: { id: string; src: string }[];  // Now each Pokémon image has an `id`
 }
 
 const Carousel: React.FC<CarouselProps> = ({ images }) => {
@@ -26,9 +27,12 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   return (
     <div className={styles.carouselContainer}>
       <Slider {...settings}>
-        {images.map((img, index) => (
-          <div key={index} className={styles.slide}>
-            <Image src={img} alt={`Pokemon ${index}`} width={400} height={600} />
+        {images.map((pokemon) => (
+          <div key={pokemon.id} className={styles.slide}>
+            {/* Wrap each image in a Next.js Link */}
+            <Link href={`/pokemon/${pokemon.id}`}>
+              <Image src={pokemon.src} alt={`Pokemon ${pokemon.id}`} width={400} height={600} />
+            </Link>
           </div>
         ))}
       </Slider>
