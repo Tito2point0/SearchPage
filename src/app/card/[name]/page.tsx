@@ -56,7 +56,7 @@ export default function CardDetailPage() {
 
   if (loading) return <p>Loading card details...</p>;
   if (error) return <p>{error}</p>;
-  if (cards.length === 0) return <p>No cards found for "{name}".</p>;
+  if (cards.length === 0) return <p>No cards found for &quot;{name}&quot;.</p>;
 
   return (
     <div className={styles.container}>
