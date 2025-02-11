@@ -255,7 +255,7 @@
   border-color: #0f7e78;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 850px) {
   .cardContent {
     flex-direction: column; /* Stack items vertically */
     align-items: center;
