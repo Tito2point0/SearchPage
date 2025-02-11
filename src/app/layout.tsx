@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 // ✅ Metadata for SEO and Favicon Support
 export const metadata: Metadata = {
   title: "Pokémon Explorer",
-  description: "Explore Pokémon Cards, Stats, and Abilities in One Place.",
+  description: "Explore 151 Pokémon Cards, Stats, and Abilities in One Place.",
   icons: [
     // { rel: "icon", url: "/favicon.ico" }, // Default for most browsers
     { rel: "icon", type: "image/png", url: "/favicon.png" }, // PNG format
