@@ -122,3 +122,17 @@
 .detailInfo p {
   margin: 5px 0;
 }
+.detailCardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.h1 {
+  margin-bottom: 20px;
+}
+
+.p {
+  margin: 10px 0;
+}

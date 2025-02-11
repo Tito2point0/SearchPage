@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation"; // For dynamic route parameters
 import Image from "next/image";
 import styles from "../../styles/home.module.css";
+import Link from "next/link";
 
 interface Card {
   id: string;
@@ -84,7 +85,8 @@ export default function CardDetailPage() {
       <h1>Cards for {typeof name === 'string' ? name.toUpperCase() : "Unknown"}</h1>
       <div className={styles.detailCardGrid}>
         {cards.map((card) => (
-          <div key={card.id} className={styles.card}>
+                 <Link key={card.id} href={`/card/details/${encodeURIComponent(card.id)}`}>
+
             <Image
               src={card.images.small}
               alt={card.name}
@@ -93,7 +95,7 @@ export default function CardDetailPage() {
               priority
             />
             <h3>{card.name}</h3>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

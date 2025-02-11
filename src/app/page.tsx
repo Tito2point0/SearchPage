@@ -56,6 +56,7 @@ export default function HomePage() {
           const pokeId = segments[segments.length - 2];
           // Pass the Pokemon name (encoded) in the URL for the detail page.
           return (
+            
             <Link key={pokeId} href={`/card/${encodeURIComponent(pokemon.name)}`}>
               <div className={styles.card}>
                 <Image
