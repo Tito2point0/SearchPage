@@ -255,3 +255,22 @@
   border-color: #0f7e78;
 }
 
+@media (max-width: 600px) {
+  .cardContent {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    text-align: center;
+  }
+
+  .cardImage {
+    max-width: 100%; /* Make sure image is responsive */
+  }
+
+  .cardStats {
+    width: 100%;
+  }
+
+  .tcgButton {
+    max-width: 100%;
+  }
+}
