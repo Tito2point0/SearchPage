@@ -61,8 +61,12 @@ export default function CardDetailPage() {
         } else {
           throw new Error("No card data returned");
         }
-      } catch (err: any) {
-        setError(err.message || "An error occurred");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An error occurred");
+        }
       } finally {
         setLoading(false);
       }

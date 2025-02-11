@@ -43,8 +43,12 @@ export default function CardDetailPage() {
         setLoading(false);
 
         setCards(data.data || []);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred.");
+        }
       }
     }
     fetchCardData();
@@ -56,7 +60,7 @@ export default function CardDetailPage() {
 
   return (
     <div className={styles.container}>
-      <h1>Cards for {name.toUpperCase()}</h1>
+      <h1>Cards for {((name as string) || "Unknown").toUpperCase()}</h1>
       <div className={styles.grid}>
         {cards.map((card) => (
           <div key={card.id} className={styles.card}>
