@@ -52,6 +52,11 @@ export default function CardDetailPage() {
         const url = `https://api.pokemontcg.io/v2/cards/${encodeURIComponent(
           cardId
         )}`;
+  
+        console.log("Fetching from:", url); // Check the API call
+        console.log("Using API Key:", apiKey ? "Set" : "Missing"); // Ensure API Key is present
+    
+
         const res = await fetch(url, { headers: { "X-Api-Key": apiKey } });
 
         if (!res.ok) throw new Error("Failed to fetch card details");
