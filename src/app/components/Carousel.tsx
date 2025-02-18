@@ -2,7 +2,7 @@
 
 import React from "react";
 import Slider from "react-slick";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";  // Import Next.js Link
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -31,7 +31,7 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           <div key={pokemon.id} className={styles.slide}>
             {/* Wrap each image in a Next.js Link */}
             <Link href={`/pokemon/${pokemon.id}`}>
-              <Image src={pokemon.src} alt={`Pokemon ${pokemon.id}`} width={400} height={600} />
+              <img src={pokemon.src} alt={`Pokemon ${pokemon.id}`} width={400} height={600} />
             </Link>
           </div>
         ))}

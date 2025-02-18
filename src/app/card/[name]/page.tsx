@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation"; // For dynamic route parameters
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../../styles/home.module.css"; // Adjust the path if needed
 
 // Define the shape of a card returned by the API
@@ -88,7 +88,7 @@ export default function CardListPage() {
           // Link each card to its detail page using the card's unique id
           <Link key={card.id} href={`/card/details/${encodeURIComponent(card.id)}`}>
             <div className={styles.card}>
-              <Image
+              <img
                 src={card.images.small}
                 alt={card.name}
                 width={150}

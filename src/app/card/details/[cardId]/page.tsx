@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../../../styles/home.module.css";
 
 interface CardDetail {
@@ -87,7 +87,7 @@ export default function CardDetailPage() {
       <div className={styles.cardContent}>
         {/* Left Side: Card Image */}
         <div className={styles.cardImage}>
-          <Image
+          <img
             src={card.images.large}
             alt={card.name}
             width={300}
@@ -95,7 +95,7 @@ export default function CardDetailPage() {
             priority
           />
           {card.set?.images.logo && (
-            <Image
+            <img
               src={card.set.images.logo}
               alt="Set Logo"
               className={styles.setLogo}

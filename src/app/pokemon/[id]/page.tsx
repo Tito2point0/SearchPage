@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation"; // For dynamic route parameters
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../../styles/home.module.css";
 import Link from "next/link";
 
@@ -87,7 +87,7 @@ export default function CardDetailPage() {
         {cards.map((card) => (
                  <Link key={card.id} href={`/card/details/${encodeURIComponent(card.id)}`}>
 
-            <Image
+            <img
               src={card.images.small}
               alt={card.name}
               width={150}

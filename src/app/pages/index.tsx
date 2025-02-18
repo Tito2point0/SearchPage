@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../styles/home.module.css";
 
 interface Pokemon {
@@ -51,7 +51,7 @@ export default function Home() {
           return (
             <Link key={pokemonId} href={`/pokemon/${pokemonId}`} passHref>
               <div className={styles.card}>
-                <Image
+                <img
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
                   alt={pokemon.name}
                   width={100}
