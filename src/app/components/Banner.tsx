@@ -9,7 +9,6 @@ const Banner: React.FC = () => {
         alt="Pokémon Banner"
         width={1600}
         height={400}
-        priority
       />
       <h1 className={styles.bannerText}>Welcome to the Pokémon TCG Explorer!</h1>
     </div>

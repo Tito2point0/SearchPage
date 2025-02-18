@@ -93,8 +93,7 @@ export default function CardListPage() {
                 alt={card.name}
                 width={150}
                 height={210}
-                priority
-              />
+            />
               <h3>{card.name}</h3>
             </div>
           </Link>

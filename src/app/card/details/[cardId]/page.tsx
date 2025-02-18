@@ -92,7 +92,6 @@ export default function CardDetailPage() {
             alt={card.name}
             width={300}
             height={420}
-            priority
           />
           {card.set?.images.logo && (
             <img

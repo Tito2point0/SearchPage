@@ -92,7 +92,6 @@ export default function CardDetailPage() {
               alt={card.name}
               width={150}
               height={210}
-              priority
             />
             <h3>{card.name}</h3>
           </Link>

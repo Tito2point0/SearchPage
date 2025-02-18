@@ -56,7 +56,6 @@ export default function Home() {
                   alt={pokemon.name}
                   width={100}
                   height={100}
-                  priority
                 />
                 <h3>{pokemon.name.toUpperCase()}</h3>
               </div>
