@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'your-api-domain.com', // Replace with the actual API domain
+        hostname: 'raw.githubusercontent.com', 
       },
     ],
   },
