@@ -1,9 +1,11 @@
 // src/app/page.tsx
+
 "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Vortex } from "./components/ui/vortex"; // Adjust import path if needed
 import styles from "./styles/home.module.css";
 
 interface Pokemon {
@@ -30,7 +32,7 @@ export default function HomePage() {
         const data = await res.json();
         setPokemonList(data.results);
       } catch (err) {
-        setError((err instanceof Error) ? err.message : "An error occurred");
+        setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -47,50 +49,56 @@ export default function HomePage() {
   if (error) return <p>{error}</p>;
 
   return (
+    <Vortex containerClassName="h-screen w-screen" className="">
     <div className={styles.container}>
-      <h1 className={styles.title}>Pokémon Explorer</h1>
-      <div className={styles.grid}>
-        {currentPokemon.map((pokemon) => {
-          // Extract the Pokémon ID from the URL (used for the sprite)
-          const segments = pokemon.url.split("/");
-          const pokeId = segments[segments.length - 2];
-          // Pass the Pokemon name (encoded) in the URL for the detail page.
-          return (
-            
-            <Link key={pokeId} href={`/card/${encodeURIComponent(pokemon.name)}`}>
-              <div className={styles.card}>
-                <Image
-                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`}
-                  alt={pokemon.name}
-                  width={100}
-                  height={100}
-                  priority
-                />
-                <h3>{pokemon.name.toUpperCase()}</h3>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-      <div className={styles.pagination}>
-        <button
-          className={styles.button}
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage(currentPage - 1)}
-        >
-          Prev
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className={styles.button}
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage(currentPage + 1)}
-        >
-          Next
-        </button>
+      {/* Wrap this section in the semi-transparent background */}
+      <div className={styles.opaqueBackground}>
+        <h1 className={styles.title}>Pokémon Explorer</h1>
+        <div className={styles.grid}>
+          {currentPokemon.map((pokemon) => {
+            const segments = pokemon.url.split("/");
+            const pokeId = segments[segments.length - 2];
+            return (
+              <Link
+                key={pokeId}
+                href={`/card/${encodeURIComponent(pokemon.name)}`}
+              >
+                <div className={styles.card}>
+                  <Image
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`}
+                    alt={pokemon.name}
+                    width={100}
+                    height={100}
+                    priority
+                  />
+                  <h3>{pokemon.name.toUpperCase()}</h3>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+        <div className={styles.pagination}>
+          <button
+            className={styles.button}
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            Prev
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className={styles.button}
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
+  </Vortex>
+  
   );
 }

@@ -23,3 +23,16 @@ body {
 a:hover {
   text-decoration: underline;
 }
+/* home.module.css */
+
+.opaqueBackground {
+  /* White background with 80% opacity */
+  background-color: rgba(255, 255, 255, 0.8);
+
+  /* Optional: adds a slight blur behind the element for a frosted glass effect */
+  backdrop-filter: blur(4px);
+
+  /* Optional: some padding, margin, or border radius */
+  padding: 1rem;
+  border-radius: 8px;
+}
