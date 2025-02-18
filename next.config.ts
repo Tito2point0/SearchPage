@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["raw.githubusercontent.com", "images.pokemontcg.io"],
-
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'your-api-domain.com', // Replace with the actual API domain
+      },
+    ],
   },
 };
-
 module.exports = nextConfig;
