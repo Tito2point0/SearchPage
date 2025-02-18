@@ -70,6 +70,7 @@ export default function HomePage() {
                     width={100}
                     height={100}
                     priority
+                    unoptimized
                   />
                   <h3>{pokemon.name.toUpperCase()}</h3>
                 </div>
